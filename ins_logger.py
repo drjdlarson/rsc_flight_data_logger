@@ -36,7 +36,8 @@ with serial.Serial(ins_port,ins_baud, timeout = 5) as ins_ser, open(ins_filename
                 # Only set to log VNINS messages 
                 if get_header(ins_string) == "VNINS":
                     outputfile.write(ins_string)
-                    outputfile.flush()
+                    with open('/home/pi/Desktop/nav_software/vnins.txt',mode='w') as f:
+                        f.write(ins_string)
                 elif get_header(ins_string) == "GPRMC":
                     with open('/home/pi/Desktop/nav_software/rmc.txt',mode='w') as f:
                         f.write(ins_string)

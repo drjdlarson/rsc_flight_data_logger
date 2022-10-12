@@ -27,6 +27,11 @@ try:
                 line = f.readline().rstrip()
                 return line
         
+        def getVNINS():
+            with open('/home/pi/Desktop/nav_software/vnins.txt', mode='r') as f:
+                line = f.readline().rstrip()
+                return line
+                
         # Register functions above
         server.register_function(getCameraState)
         server.register_function(getGPGGAState)

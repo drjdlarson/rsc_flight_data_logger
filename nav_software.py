@@ -23,9 +23,9 @@ try:
     print ("Loggers started")
     # Switch handling process
     cam_proc = subprocess.Popen("python3 /home/pi/Desktop/nav_software/switch_handler.py", shell = True, stdout = subprocess.PIPE)
-    # Begin communication with camera controller
-    server = subprocess.Popen("python3 /home/pi/Desktop/nav_software/camera.py", shell = True)
-    print ("Camera controller started")
+    # Begin communication with camera controller and gimbal controller via server
+    server = subprocess.Popen("python3 /home/pi/Desktop/nav_software/server.py", shell = True)
+    print ("Server started")
     
     # Constantly print the current GGA string just for check that things are still running
     while 1:
