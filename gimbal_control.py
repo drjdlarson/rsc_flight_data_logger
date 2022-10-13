@@ -46,7 +46,7 @@ def processVNINS(lineraw):
         header_splits = senstence.split("$")
         line = header_splits[1]
         data = line.split(",")
-        if not checksum (senstence, chksum_val):
+        if not checksum (line, chksum_val):
             return False
         global pitch_deg 
         pitch_deg = data[6]
@@ -72,4 +72,6 @@ while 1:
         
     except Exception as e:
         print("Exception:",e)
+        pitch_deg = 0
+        roll_deg = 0
         backend = xmlrpc.client.ServerProxy(HostURL) 
