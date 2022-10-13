@@ -20,14 +20,53 @@ HOST = '169.254.2.166'
 PORT = '8000'
 HostURL ='http://'+HOST+":"+PORT
 backend = xmlrpc.client.ServerProxy(HostURL)   
+
+pitch_deg = 0
+roll_deg = 0
     
+def checksum (sentence, chk_val):
+    try:
+        cksum = 0
+        for i in sentence:
+            cksum ^= ord(i)
+            s = '{:02X}'.format(cksum)
+        if s == chk_val:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
+def processVNINS(lineraw):
+    try:
+        splits = lineraw.split("*")
+        chksum_val = splits[1]
+        senstence = splits[0]
+        header_splits = senstence.split("$")
+        line = header_splits[1]
+        data = line.split(",")
+        if not checksum (senstence, chksum_val):
+            return False
+        global pitch_deg 
+        pitch_deg = data[6]
+        global roll_deg 
+        roll_deg = data[7]
+        return True
+    except:
+        return False
+
+
 # Run indefinitely
 while 1:
     try:
         loop_start_time_ms = time.time()
         print (".")
-
-
+        line = backend.getVNINS()
+        if line is None:
+            continue
+        if processVNINS(line):
+            print (pitch_deg," | ", roll_deg)
         time_remaining_ms = loop_time_ms - (time.time() - loop_start_time_ms)
         time.sleep(time_remaining_ms/1000)
         

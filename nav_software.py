@@ -9,9 +9,13 @@ import time
 import os
 import subprocess
 
+# Delete premade files from last run
+subprocess.run("sudo rm /home/pi/Desktop/nav_software/vnins.txt", shell = True)
+subprocess.run("sudo rm /home/pi/Desktop/nav_software/cam_state.txt", shell = True)
+
 # Run sync_time.py and wait for completion
 print ("Running time_sync subroutine")
-#time_sync_res = subprocess.run("sudo python3 /home/pi/Desktop/sync_time.py", shell = True, capture_output = True, text = True)
+time_sync_res = subprocess.run("sudo python3 /home/pi/Desktop/sync_time.py", shell = True, capture_output = True, text = True)
 #print (time_sync_res.stdout)
 
 # Start processes

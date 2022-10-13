@@ -11,9 +11,12 @@ try:
         
         # Get camera state (on/off)
         def getCameraState():
-            with open('/home/pi/Desktop/nav_software/cam_state.txt', mode='r') as f:
-                state = f.readline().rstrip()
-                return state == "1"
+            try:
+                with open('/home/pi/Desktop/nav_software/cam_state.txt', mode='r') as f:
+                    state = f.readline().rstrip()
+                    return state == "1"
+            except:
+                return False
         
         # Get current GGA string
         def getGPGGAState():
@@ -28,9 +31,12 @@ try:
                 return line
         
         def getVNINS():
-            with open('/home/pi/Desktop/nav_software/vnins.txt', mode='r') as f:
-                line = f.readline().rstrip()
-                return line
+            try:
+                with open('/home/pi/Desktop/nav_software/vnins.txt', mode='r') as f:
+                    line = f.readline().rstrip()
+                    return line
+            except:
+                return None
                 
         # Register functions above
         server.register_function(getCameraState)
