@@ -42,6 +42,7 @@ try:
         server.register_function(getCameraState)
         server.register_function(getGPGGAState)
         server.register_function(getGPRMCState)
+        server.register_function(getVNINS)
         
         # Run the server forever
         server.serve_forever()
